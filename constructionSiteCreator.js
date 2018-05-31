@@ -25,9 +25,23 @@ var constructionSiteCreator = {
             room.memory.roads.push(sources[idx].id);
         }      
         
-        if(room.memory.extensions.includes(sources[idx].id)) {
-            console.log(`Building extension in room: ${room.name}.`);
+        if(!room.memory.extensions.includes(sources[idx].id)) {
+            console.log(`Building extensions in room: ${room.name}.`);
             
+            var sourcePosition = sources[idx].pos;
+            
+            room.createConstructionSite(sourcePosition.x + 1, sourcePosition.y, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x + 2, sourcePosition.y, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x + 3, sourcePosition.y, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x - 1, sourcePosition.y, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x - 2, sourcePosition.y, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x - 3, sourcePosition.y, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x, sourcePosition.y + 1, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x, sourcePosition.y + 2, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x, sourcePosition.y + 3, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x, sourcePosition.y - 1, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x, sourcePosition.y - 2, STRUCTURE_EXTENSION);
+            room.createConstructionSite(sourcePosition.x, sourcePosition.y - 3, STRUCTURE_EXTENSION);
         }
      }
     }

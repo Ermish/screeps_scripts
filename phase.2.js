@@ -8,16 +8,18 @@ var phase2 = {
         }
         
         var haveEnoughEnergyToSpawn = spawn.energy >= 200;
+        var haveEnoughEnergyToSpawnOffense = spawn.energy >= 300;
         
-        //Build at least one upgrader
-        var upgraders = _.filter(room.find(FIND_MY_CREEPS), (creep) => creep.memory.role == 'upgrader');
-        console.log('Upgraders: ' + upgraders.length);
+        var harvesters = _.filter(room.find(FIND_MY_CREEPS), (creep) => creep.memory.role == 'harvester');
+        console.log('Harvesters: ' + harvesters.length);
         
-        if(haveEnoughEnergyToSpawn && upgraders.length < 1) {
-            var newName = 'Upgrader' + Game.time;
-            console.log('Spawning new upgrader: ' + newName);
+    
+        //Build minimum amount of harvesters
+        if(haveEnoughEnergyToSpawn && harvesters.length < 8) {
+            var newName = 'Harvester' + Game.time;
+            console.log('Spawning new harvester: ' + newName);
             
-            spawn.spawnCreep([WORK,CARRY,MOVE], newName, {memory: {role: 'upgrader'}});        
+            spawn.spawnCreep([WORK,CARRY,MOVE], newName, {memory: {role: 'harvester'}});        
             return false;
         }
         
@@ -25,13 +27,37 @@ var phase2 = {
         var builders = _.filter(room.find(FIND_MY_CREEPS), (creep) => creep.memory.role == 'builder');
         console.log('Builders: ' + builders.length);
         
-        if(haveEnoughEnergyToSpawn && builders.length < 1) {
+        if(haveEnoughEnergyToSpawn && builders.length < 5) {
             var newName = 'Builder' + Game.time;
             console.log('Spawning new builder: ' + newName);
             
             spawn.spawnCreep([WORK,CARRY,MOVE], newName, {memory: {role: 'builder'}});        
             return false;
         }
+        
+          //Build at least one upgrader
+        var upgraders = _.filter(room.find(FIND_MY_CREEPS), (creep) => creep.memory.role == 'upgrader');
+        console.log('Upgraders: ' + upgraders.length);
+        
+        if(haveEnoughEnergyToSpawn && upgraders.length < 5) {
+            var newName = 'Upgrader' + Game.time;
+            console.log('Spawning new upgrader: ' + newName);
+            
+            spawn.spawnCreep([WORK,CARRY,MOVE], newName, {memory: {role: 'upgrader'}});        
+            return false;
+        }
+        
+        //Build things to CONQUER THE WORLD MWAHAHAHAHA
+       var offense = _.filter(room.find(FIND_MY_CREEPS), (creep) => creep.memory.role == 'offense');
+       console.log('Offense: ' + offense.length);
+       
+       if(haveEnoughEnergyToSpawnOffense && offense.length < 1) {
+           var newName = 'Offense' + Game.time;
+           console.log('Spawning new offense: ' + newName);
+           
+           spawn.spawnCreep([MOVE, TOUGH, ATTACK, ATTACK, ATTACK], newName, {memory: {role: 'offense'}});        
+           return false;
+       }
         
         return true;
     }

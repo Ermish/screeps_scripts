@@ -6,6 +6,7 @@ var roleOffense = require('role.offense');
 
 
 var phase1 = require('phase.1');
+var phase2 = require('phase.2');
 
 var constructionSiteCreator = require('constructionSiteCreator');
 
@@ -52,6 +53,8 @@ module.exports.loop = function () {
                 if(!isPhase1Complete) {
                     continue;
                 }
+                
+                var isPhase2Complete = phase2.run(spawn, room);
           }
         }
     }
@@ -69,6 +72,9 @@ module.exports.loop = function () {
         }
         if(creep.memory.role == 'defense') {
             roleDefense.run(creep);
+        }
+        if(creep.memory.role == 'offense') {
+            roleOffense.run(creep);
         }
     }
 }
